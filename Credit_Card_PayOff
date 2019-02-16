@@ -1,0 +1,37 @@
+import java.util.Scanner;
+
+public class Calc_Debt {
+	
+	public static void Calc_Debt() 
+	{
+		Scanner Var_Reader = new Scanner(System.in);
+		System.out.print("Principal: \t");
+		Double Principal = Var_Reader.nextDouble();
+		
+		System.out.print("Annual Interest Rate (%): \t");
+		Double AIR= Var_Reader.nextDouble();
+		
+		Scanner Month_Reader = new Scanner(System.in);
+		System.out.print("Monthly Payment: \t");
+		Double Monthly_Payment = Var_Reader.nextDouble();
+		
+		Var_Reader.close();
+		
+		Double raw_months = ((Math.log(Monthly_Payment)-Math.log(Monthly_Payment -((AIR/1200)*Principal)))/(Math.log((AIR/1200)+1)));
+		int int_months = (int) Math.ceil(raw_months);
+
+		Double TAP = int_months*Monthly_Payment;
+		Double TIP = TAP - Principal;
+		Double Overpayment = TAP -(raw_months*Monthly_Payment);
+
+		System.out.println(String.format("Months Needed to Pay Off: \t %d", int_months));
+		System.out.println(String.format("Total Amount Paid: \t $%.2f", TAP));
+		System.out.println(String.format("Total Interest Paid: \t $%.2f",TIP));
+		System.out.println(String.format("Overpayment: \t $%.2f",Overpayment));
+
+	}
+	
+	public static void main(String args[]) {
+		Calc_Debt();
+	}
+}
